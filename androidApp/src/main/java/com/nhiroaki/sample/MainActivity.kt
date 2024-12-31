@@ -21,10 +21,11 @@ class MainActivity : ComponentActivity() {
             SampleTheme {
                 Scaffold { innerPadding ->
                     Surface(
-                        modifier = Modifier
+                        modifier =
+                        Modifier
                             .padding(innerPadding)
                             .fillMaxSize(),
-                        color = MaterialTheme.colorScheme.background
+                        color = MaterialTheme.colorScheme.background,
                     ) {
                         Text("Hello, Android!")
                     }
