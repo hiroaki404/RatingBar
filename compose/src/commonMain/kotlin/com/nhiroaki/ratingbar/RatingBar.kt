@@ -8,6 +8,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,6 +19,20 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+/**
+ * A composable function that displays a rating bar. This rating bar is designed to be generic and can be used with any composable, not just stars. Users can change the rating value through user interaction.
+ *
+ * @param value The current rating value.
+ * @param onValueChange A callback that is invoked when the rating value changes.
+ * @param modifier The [Modifier] to be applied to this composable.
+ * @param numOfSteps The number of steps in the rating bar. The default value is 5.
+ * @param stepSize The value of each step. The default value is 1.0f.
+ * @param spaceBetween The space between each step. The default value is 2.dp.
+ * @param ratingContent The content to be displayed for each rated step. The default is [RatingBarDefaults.RatingContent].
+ * @param inactiveContent The content to be displayed for each unrated step. The default is [RatingBarDefaults.InactiveContent].
+ *
+ * @sample com.nhiroaki.ratingbar.RatingBarSample
+ */
 @Composable
 fun RatingBar(
     value: Float,
@@ -65,6 +83,9 @@ fun RatingBar(
 //
 // }
 
+/**
+ * The default color for rated contents. The default icon is a star.
+ */
 object RatingBarDefaults {
     @Composable
     fun RatingContent(color: Color = DefaultStarColor, modifier: Modifier = Modifier) {
@@ -85,4 +106,14 @@ object RatingBarDefaults {
             contentDescription = "Unrated Star",
         )
     }
+}
+
+@Composable
+fun RatingBarSample() {
+    var rating by remember { mutableFloatStateOf(3f) }
+
+    RatingBar(
+        value = rating,
+        onValueChange = { rating = it },
+    )
 }
