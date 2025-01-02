@@ -1,11 +1,17 @@
 package com.nhiroaki.ratingbar
 
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -15,7 +21,7 @@ fun RatingBar(
     onValueChange: (Float) -> Unit,
     modifier: Modifier = Modifier,
     numOfSteps: Int = 5,
-    stepSize: Float = 1f,
+    stepSize: Float = 1.0f,
     spaceBetween: Dp = 2.dp,
     ratingContent: @Composable () -> Unit = {
         RatingBarDefaults.RatingContent()
@@ -24,6 +30,28 @@ fun RatingBar(
         RatingBarDefaults.InactiveContent()
     },
 ) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(spaceBetween),
+    ) {
+        (1..numOfSteps).forEach { index ->
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .pointerInput(Unit) {
+                        detectTapGestures {
+                            onValueChange(index.toFloat())
+                        }
+                    },
+            ) {
+                inactiveContent()
+
+                if (index <= value) {
+                    ratingContent()
+                }
+            }
+        }
+    }
 }
 
 // TODO: implements this
