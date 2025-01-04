@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 hiroaki404/nhiroaki
+ * Copyright 2025 hiroaki404
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.nhiroaki.ratingbar"
+    namespace = "io.github.hiroaki404.ratingbar"
     compileSdk = 34
     defaultConfig {
         minSdk = 21
