@@ -16,11 +16,13 @@
 
 package com.nhiroaki.ratingbar
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.window.ComposeUIViewController
 
-@Preview
-@Composable
-fun RatingBarPreview() {
-    RatingBarSample()
+fun mainViewController() = ComposeUIViewController {
+    Scaffold { innerPadding ->
+        RatingBarSample(modifier = Modifier.padding(innerPadding))
+    }
 }
