@@ -125,10 +125,11 @@ object RatingBarDefaults {
 }
 
 @Composable
-fun RatingBarSample() {
+fun RatingBarSample(modifier: Modifier) {
     var rating by remember { mutableFloatStateOf(3f) }
 
     RatingBar(
+        modifier = modifier,
         value = rating,
         onValueChange = { rating = it },
     )
