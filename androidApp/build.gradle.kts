@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.nhiroaki.sample"
+    namespace = "io.github.hiroaki404.sample"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.nhiroaki.sample"
+        applicationId = "io.github.hiroaki404.sample"
         minSdk = 30
         targetSdk = 35
         versionCode = 1
