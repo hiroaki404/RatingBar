@@ -17,5 +17,5 @@ package io.github.hiroaki404.ratingbar
 
 import androidx.compose.ui.graphics.Color
 
-val DefaultStarColor = Color(0xFFFFC02E)
-val DefaultInactiveStarColor = Color.Gray
+internal val DefaultStarColor = Color(0xFFFFC02E)
+internal val DefaultInactiveStarColor = Color.Gray
