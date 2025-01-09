@@ -63,6 +63,67 @@ fun RatingBar(
         RatingBarDefaults.InactiveContent()
     },
 ) {
+    RatingBarBasic(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = modifier,
+        numOfSteps = numOfSteps,
+        spaceBetween = spaceBetween,
+        ratingContent = ratingContent,
+        inactiveContent = inactiveContent,
+    )
+}
+
+/**
+ * Rating bar that should only be used as an indicator. It does not allow user interaction.
+ * @param value The current rating value.
+ * @param modifier The [Modifier] to be applied to this composable.
+ * @param numOfSteps The number of steps in the rating bar. The default value is 5.
+ * @param stepSize The value of each step. The default value is 1.0f.
+ * @param spaceBetween The space between each step. The default value is 2.dp.
+ * @param ratingContent The content to be displayed for each rated step. The default is [RatingBarDefaults.RatingContent].
+ * @param inactiveContent The content to be displayed for each unrated step. The default is [RatingBarDefaults.InactiveContent].
+ */
+@Composable
+fun RatingBarAsIndicator(
+    value: Float,
+    modifier: Modifier = Modifier,
+    numOfSteps: Int = 5,
+//    stepSize: Float = 1.0f,
+    spaceBetween: Dp = 2.dp,
+    ratingContent: @Composable () -> Unit = {
+        RatingBarDefaults.RatingContent()
+    },
+    inactiveContent: @Composable () -> Unit = {
+        RatingBarDefaults.InactiveContent()
+    },
+) {
+    RatingBarBasic(
+        value = value,
+        onValueChange = null,
+        modifier = modifier,
+        numOfSteps = numOfSteps,
+        spaceBetween = spaceBetween,
+        ratingContent = ratingContent,
+        inactiveContent = inactiveContent,
+    )
+}
+
+@Composable
+private fun RatingBarBasic(
+    value: Float,
+    onValueChange: ((Float) -> Unit)?,
+    modifier: Modifier = Modifier,
+    numOfSteps: Int = 5,
+//    stepSize: Float = 1.0f,
+    spaceBetween: Dp = 2.dp,
+    ratingContent: @Composable () -> Unit = {
+        RatingBarDefaults.RatingContent()
+    },
+    inactiveContent: @Composable () -> Unit = {
+        RatingBarDefaults.InactiveContent()
+    },
+) {
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(spaceBetween),
@@ -73,7 +134,7 @@ fun RatingBar(
                 modifier = Modifier
                     .pointerInput(Unit) {
                         detectTapGestures {
-                            onValueChange(index.toFloat())
+                            onValueChange?.invoke(index.toFloat())
                         }
                     },
             ) {
@@ -86,17 +147,6 @@ fun RatingBar(
         }
     }
 }
-
-// TODO: implements this
-/**
- * Rating bar that should only be used as an indicator. It does not allow user interaction.
- *
- */
-// @Composable
-// fun RatingBarAsIndicator(
-// ) {
-//
-// }
 
 /**
  * The default color for rated contents. The default icon is a star.
