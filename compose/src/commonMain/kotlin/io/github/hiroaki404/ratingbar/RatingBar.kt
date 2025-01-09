@@ -83,6 +83,8 @@ fun RatingBar(
  * @param spaceBetween The space between each step. The default value is 2.dp.
  * @param ratingContent The content to be displayed for each rated step. The default is [RatingBarDefaults.RatingContent].
  * @param inactiveContent The content to be displayed for each unrated step. The default is [RatingBarDefaults.InactiveContent].
+ *
+ * @sample io.github.hiroaki404.ratingbar.RatingBarAsIndicatorSample
  */
 @Composable
 fun RatingBarAsIndicator(
@@ -181,5 +183,13 @@ internal fun RatingBarSample(modifier: Modifier = Modifier) {
         modifier = modifier,
         value = rating,
         onValueChange = { rating = it },
+    )
+}
+
+@Composable
+internal fun RatingBarAsIndicatorSample(modifier: Modifier = Modifier) {
+    RatingBarAsIndicator(
+        modifier = modifier,
+        value = 3f,
     )
 }
