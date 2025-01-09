@@ -11,7 +11,13 @@ you to easily add a rating bar to both Android and iOS applications.
 
 ## Installation
 
-- Work in progress
+Add the following dependency to your `build.gradle.kts`:
+
+```kotlin
+dependencies {
+    implementation("io.github.hiroaki404.ratingbar:$version")
+}
+```
 
 ## Usage
 

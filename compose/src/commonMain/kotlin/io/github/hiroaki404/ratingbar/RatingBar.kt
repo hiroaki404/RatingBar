@@ -54,7 +54,7 @@ fun RatingBar(
     onValueChange: (Float) -> Unit,
     modifier: Modifier = Modifier,
     numOfSteps: Int = 5,
-    stepSize: Float = 1.0f,
+//    stepSize: Float = 1.0f,
     spaceBetween: Dp = 2.dp,
     ratingContent: @Composable () -> Unit = {
         RatingBarDefaults.RatingContent()
