@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 hiroaki404
+ * Copyright 2025 hiroaki404/nhiroaki
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,19 +13,31 @@
  *
  */
 
-package io.github.hiroaki404.ratingbar
+package io.github.hiroaki404.sample
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
+import io.github.hiroaki404.ratingbar.RatingBar
+import io.github.hiroaki404.ratingbar.RatingBarAsIndicator
 
 @Preview
 @Composable
 private fun RatingBarPreview() {
-    RatingBarSample()
+    var rating by remember { mutableFloatStateOf(3f) }
+    RatingBar(
+        value = rating,
+        onValueChange = { rating = it },
+    )
 }
 
 @Preview
 @Composable
 private fun RatingBarSample() {
-    RatingBarAsIndicatorSample()
+    RatingBarAsIndicator(
+        value = 3f,
+    )
 }
