@@ -21,6 +21,7 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun RatingBarSample(modifier: Modifier = Modifier) {
@@ -37,4 +38,16 @@ fun RatingBarAsIndicatorSample() {
     RatingBarAsIndicator(
         value = 3f,
     )
+}
+
+@Preview
+@Composable
+private fun RatingBarPreview() {
+    RatingBarSample()
+}
+
+@Preview
+@Composable
+private fun RatingBarAsIndicatorPreview() {
+    RatingBarAsIndicatorSample()
 }
