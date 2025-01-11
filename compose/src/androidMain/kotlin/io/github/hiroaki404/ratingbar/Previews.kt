@@ -20,6 +20,12 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Preview
 @Composable
-fun RatingBarPreview() {
+private fun RatingBarPreview() {
     RatingBarSample()
+}
+
+@Preview
+@Composable
+private fun RatingBarSample() {
+    RatingBarAsIndicatorSample()
 }

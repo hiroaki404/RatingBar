@@ -20,6 +20,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.ComposeUIViewController
 
+// TODO: move from library module
 fun mainViewController() = ComposeUIViewController {
     Scaffold { innerPadding ->
         RatingBarSample(modifier = Modifier.padding(innerPadding))
