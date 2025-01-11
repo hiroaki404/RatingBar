@@ -53,10 +53,6 @@ kotlin {
             implementation(compose.material)
             implementation(compose.material3)
             implementation(compose.ui)
-            implementation(compose.components.uiToolingPreview)
-        }
-        androidMain.dependencies {
-            implementation(libs.compose.ui.tooling)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
