@@ -15,14 +15,12 @@
 
 package io.github.hiroaki404.ratingbar
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun RatingBarSample(modifier: Modifier = Modifier) {
@@ -30,6 +28,13 @@ fun RatingBarSample(modifier: Modifier = Modifier) {
     RatingBar(
         value = rating,
         onValueChange = { rating = it },
-        modifier = modifier.padding(16.dp),
+        modifier = modifier,
+    )
+}
+
+@Composable
+fun RatingBarAsIndicatorSample() {
+    RatingBarAsIndicator(
+        value = 3f,
     )
 }
