@@ -16,28 +16,18 @@
 package io.github.hiroaki404.sample
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import io.github.hiroaki404.ratingbar.RatingBar
-import io.github.hiroaki404.ratingbar.RatingBarAsIndicator
+import io.github.hiroaki404.ratingbar.RatingBarAsIndicatorSample
+import io.github.hiroaki404.ratingbar.RatingBarSample
 
 @Preview
 @Composable
 private fun RatingBarPreview() {
-    var rating by remember { mutableFloatStateOf(3f) }
-    RatingBar(
-        value = rating,
-        onValueChange = { rating = it },
-    )
+    RatingBarSample()
 }
 
 @Preview
 @Composable
-private fun RatingBarSample() {
-    RatingBarAsIndicator(
-        value = 3f,
-    )
+private fun RatingBarAsIndicatorPreview() {
+    RatingBarAsIndicatorSample()
 }
