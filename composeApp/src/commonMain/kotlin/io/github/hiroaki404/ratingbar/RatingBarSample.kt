@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 hiroaki404
+ * Copyright 2025 hiroaki404/nhiroaki
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,20 @@
 package io.github.hiroaki404.ratingbar
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.window.ComposeUIViewController
+import androidx.compose.ui.unit.dp
 
-// TODO: move from library module
-fun mainViewController() = ComposeUIViewController {
-    Scaffold { innerPadding ->
-        RatingBarSample(modifier = Modifier.padding(innerPadding))
-    }
+@Composable
+fun RatingBarSample(modifier: Modifier = Modifier) {
+    var rating by remember { mutableFloatStateOf(3f) }
+    RatingBar(
+        value = rating,
+        onValueChange = { rating = it },
+        modifier = modifier.padding(16.dp),
+    )
 }

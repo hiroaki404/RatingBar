@@ -16,4 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "RatingBar"
 include(":compose")
-include(":androidApp")
+include(":composeApp")
