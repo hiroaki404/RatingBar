@@ -25,7 +25,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import io.github.hiroaki404.ratingbar.RatingBarSample
+import io.github.hiroaki404.ratingbar.RatingBarSamples
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
                             .fillMaxSize(),
                         color = MaterialTheme.colorScheme.background,
                     ) {
-                        RatingBarSample()
+                        RatingBarSamples()
                     }
                 }
             }
