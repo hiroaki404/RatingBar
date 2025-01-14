@@ -15,6 +15,7 @@
 
 package io.github.hiroaki404.ratingbar
 
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,8 +30,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.boundsInParent
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -63,10 +68,30 @@ fun RatingBar(
         RatingBarDefaults.InactiveContent()
     },
 ) {
+    val boundingBoxes = remember(numOfSteps) { MutableList(numOfSteps) { Rect.Zero } }
+
     RatingBarBasic(
         value = value,
-        onValueChange = onValueChange,
-        modifier = modifier,
+        modifier = modifier.pointerInput(Unit) {
+            detectHorizontalDragGestures { change, _ ->
+                val (index, rect) = boundingBoxes.withIndex().firstOrNull { (_, rect) ->
+                    rect.contains(Offset(change.position.x, 0f))
+                } ?: return@detectHorizontalDragGestures
+
+                val relativePositionX = change.position.x - rect.left
+
+                if (relativePositionX > 0) onValueChange(index.plus(1).toFloat())
+            }
+        },
+        childModifier = { index ->
+            Modifier.onGloballyPositioned { layoutCoordinates ->
+                boundingBoxes[index] = layoutCoordinates.boundsInParent()
+            }.pointerInput(Unit) {
+                detectTapGestures {
+                    onValueChange.invoke(index.plus(1).toFloat())
+                }
+            }
+        },
         numOfSteps = numOfSteps,
         spaceBetween = spaceBetween,
         ratingContent = ratingContent,
@@ -102,7 +127,6 @@ fun RatingBarAsIndicator(
 ) {
     RatingBarBasic(
         value = value,
-        onValueChange = null,
         modifier = modifier,
         numOfSteps = numOfSteps,
         spaceBetween = spaceBetween,
@@ -114,8 +138,8 @@ fun RatingBarAsIndicator(
 @Composable
 private fun RatingBarBasic(
     value: Float,
-    onValueChange: ((Float) -> Unit)?,
     modifier: Modifier = Modifier,
+    childModifier: (index: Int) -> Modifier = { _ -> Modifier },
     numOfSteps: Int = 5,
 //    stepSize: Float = 1.0f,
     spaceBetween: Dp = 2.dp,
@@ -130,19 +154,15 @@ private fun RatingBarBasic(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(spaceBetween),
     ) {
-        (1..numOfSteps).forEach { index ->
+        repeat(numOfSteps) { index ->
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .pointerInput(Unit) {
-                        detectTapGestures {
-                            onValueChange?.invoke(index.toFloat())
-                        }
-                    },
+                    .then(childModifier(index)),
             ) {
                 inactiveContent()
 
-                if (index <= value) {
+                if (index < value) {
                     ratingContent()
                 }
             }

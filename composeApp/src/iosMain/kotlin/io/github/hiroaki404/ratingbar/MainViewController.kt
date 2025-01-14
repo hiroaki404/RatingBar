@@ -22,6 +22,6 @@ import androidx.compose.ui.window.ComposeUIViewController
 
 fun mainViewController() = ComposeUIViewController {
     Scaffold { innerPadding ->
-        RatingBarSample(modifier = Modifier.padding(innerPadding))
+        RatingBarSamples(modifier = Modifier.padding(innerPadding))
     }
 }
