@@ -59,7 +59,7 @@ fun RatingBar(
     onValueChange: (Float) -> Unit,
     modifier: Modifier = Modifier,
     numOfSteps: Int = 5,
-//    stepSize: Float = 1.0f,
+    stepSize: StepSize = StepSize.ONE,
     spaceBetween: Dp = 2.dp,
     ratingContent: @Composable () -> Unit = {
         RatingBarDefaults.RatingContent()
@@ -93,6 +93,7 @@ fun RatingBar(
             }
         },
         numOfSteps = numOfSteps,
+        stepSize = stepSize,
         spaceBetween = spaceBetween,
         ratingContent = ratingContent,
         inactiveContent = inactiveContent,
@@ -116,7 +117,7 @@ fun RatingBarAsIndicator(
     value: Float,
     modifier: Modifier = Modifier,
     numOfSteps: Int = 5,
-//    stepSize: Float = 1.0f,
+    stepSize: StepSize = StepSize.ONE,
     spaceBetween: Dp = 2.dp,
     ratingContent: @Composable () -> Unit = {
         RatingBarDefaults.RatingContent()
@@ -129,6 +130,7 @@ fun RatingBarAsIndicator(
         value = value,
         modifier = modifier,
         numOfSteps = numOfSteps,
+        stepSize = stepSize,
         spaceBetween = spaceBetween,
         ratingContent = ratingContent,
         inactiveContent = inactiveContent,
@@ -141,7 +143,7 @@ private fun RatingBarBasic(
     modifier: Modifier = Modifier,
     childModifier: (index: Int) -> Modifier = { _ -> Modifier },
     numOfSteps: Int = 5,
-//    stepSize: Float = 1.0f,
+    stepSize: StepSize = StepSize.ONE,
     spaceBetween: Dp = 2.dp,
     ratingContent: @Composable () -> Unit = {
         RatingBarDefaults.RatingContent()
