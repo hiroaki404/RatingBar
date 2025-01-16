@@ -30,13 +30,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.boundsInParent
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 
 /**
@@ -164,8 +170,12 @@ private fun RatingBarBasic(
             ) {
                 inactiveContent()
 
-                if (index < value) {
+                if (index < kotlin.math.floor(value)) {
                     ratingContent()
+                } else if (index < value) {
+                    Box(modifier = Modifier.clip(HalfCutoutShape())) {
+                        ratingContent()
+                    }
                 }
             }
         }
@@ -214,4 +224,12 @@ internal fun RatingBarAsIndicatorSample(modifier: Modifier = Modifier) {
         modifier = modifier,
         value = 3f,
     )
+}
+
+private class HalfCutoutShape : Shape {
+    override fun createOutline(
+        size: Size,
+        layoutDirection: LayoutDirection,
+        density: Density,
+    ): Outline = Outline.Rectangle(Rect(Offset.Zero, Size((size.width / 2), size.height)))
 }
