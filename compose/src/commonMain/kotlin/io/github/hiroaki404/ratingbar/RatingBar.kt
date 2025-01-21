@@ -65,7 +65,7 @@ fun RatingBar(
     onValueChange: (Float) -> Unit,
     modifier: Modifier = Modifier,
     numOfSteps: Int = 5,
-    stepSize: StepSize = StepSize.ONE,
+    stepSize: StepSize = StepSize.HALF,
     spaceBetween: Dp = 2.dp,
     ratingContent: @Composable () -> Unit = {
         RatingBarDefaults.RatingContent()
@@ -123,7 +123,7 @@ fun RatingBarAsIndicator(
     value: Float,
     modifier: Modifier = Modifier,
     numOfSteps: Int = 5,
-    stepSize: StepSize = StepSize.ONE,
+    stepSize: StepSize = StepSize.HALF,
     spaceBetween: Dp = 2.dp,
     ratingContent: @Composable () -> Unit = {
         RatingBarDefaults.RatingContent()
@@ -149,7 +149,7 @@ private fun RatingBarBasic(
     modifier: Modifier = Modifier,
     childModifier: (index: Int) -> Modifier = { _ -> Modifier },
     numOfSteps: Int = 5,
-    stepSize: StepSize = StepSize.ONE,
+    stepSize: StepSize = StepSize.HALF,
     spaceBetween: Dp = 2.dp,
     ratingContent: @Composable () -> Unit = {
         RatingBarDefaults.RatingContent()
@@ -158,6 +158,13 @@ private fun RatingBarBasic(
         RatingBarDefaults.InactiveContent()
     },
 ) {
+    fun Float.modifyValue(stepSize: StepSize): Float = when (stepSize) {
+        StepSize.HALF -> this
+        StepSize.ONE -> kotlin.math.floor(this)
+    }
+
+    val modifiedValue = value.modifyValue(stepSize)
+
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(spaceBetween),
@@ -170,11 +177,11 @@ private fun RatingBarBasic(
             ) {
                 inactiveContent()
 
-                if (index < value) {
+                if (index < modifiedValue) {
                     Box(
                         modifier = Modifier
                             .run {
-                                if (index == kotlin.math.floor(value).toInt()) {
+                                if (index == kotlin.math.floor(modifiedValue).toInt()) {
                                     clip(HalfCutoutShape())
                                 } else {
                                     this
