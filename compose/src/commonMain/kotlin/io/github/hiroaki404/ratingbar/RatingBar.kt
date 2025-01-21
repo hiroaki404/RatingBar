@@ -170,10 +170,17 @@ private fun RatingBarBasic(
             ) {
                 inactiveContent()
 
-                if (index < kotlin.math.floor(value)) {
-                    ratingContent()
-                } else if (index < value) {
-                    Box(modifier = Modifier.clip(HalfCutoutShape())) {
+                if (index < value) {
+                    Box(
+                        modifier = Modifier
+                            .run {
+                                if (index == kotlin.math.floor(value).toInt()) {
+                                    clip(HalfCutoutShape())
+                                } else {
+                                    this
+                                }
+                            },
+                    ) {
                         ratingContent()
                     }
                 }
