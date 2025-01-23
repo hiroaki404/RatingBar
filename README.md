@@ -1,5 +1,7 @@
 # RatingBar
 
+<img src="https://github.com/user-attachments/assets/f40a0bb9-21d0-4712-a175-82584c5cddda" width="400">
+
 RatingBar is a library for implementing a rating bar in Compose Multiplatform. This library allows
 you to easily add a rating bar to both Android and iOS applications.
 
