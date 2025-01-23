@@ -88,7 +88,7 @@ fun RatingBar(
 
                 if (relativePositionX > rect.width / 2) {
                     onValueChange(index.plus(1).toFloat())
-                } else if (relativePositionX > 0) {
+                } else if (relativePositionX > 0 && stepSize == StepSize.HALF) {
                     onValueChange(index.plus(stepSize.value))
                 }
             }
