@@ -30,13 +30,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.boundsInParent
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 
 /**
@@ -59,7 +65,7 @@ fun RatingBar(
     onValueChange: (Float) -> Unit,
     modifier: Modifier = Modifier,
     numOfSteps: Int = 5,
-//    stepSize: Float = 1.0f,
+    stepSize: StepSize = StepSize.HALF,
     spaceBetween: Dp = 2.dp,
     ratingContent: @Composable () -> Unit = {
         RatingBarDefaults.RatingContent()
@@ -80,7 +86,11 @@ fun RatingBar(
 
                 val relativePositionX = change.position.x - rect.left
 
-                if (relativePositionX > 0) onValueChange(index.plus(1).toFloat())
+                if (relativePositionX > rect.width / 2) {
+                    onValueChange(index.plus(1).toFloat())
+                } else if (relativePositionX > 0 && stepSize == StepSize.HALF) {
+                    onValueChange(index.plus(stepSize.value))
+                }
             }
         },
         childModifier = { index ->
@@ -93,6 +103,7 @@ fun RatingBar(
             }
         },
         numOfSteps = numOfSteps,
+        stepSize = stepSize,
         spaceBetween = spaceBetween,
         ratingContent = ratingContent,
         inactiveContent = inactiveContent,
@@ -116,7 +127,7 @@ fun RatingBarAsIndicator(
     value: Float,
     modifier: Modifier = Modifier,
     numOfSteps: Int = 5,
-//    stepSize: Float = 1.0f,
+    stepSize: StepSize = StepSize.HALF,
     spaceBetween: Dp = 2.dp,
     ratingContent: @Composable () -> Unit = {
         RatingBarDefaults.RatingContent()
@@ -129,6 +140,7 @@ fun RatingBarAsIndicator(
         value = value,
         modifier = modifier,
         numOfSteps = numOfSteps,
+        stepSize = stepSize,
         spaceBetween = spaceBetween,
         ratingContent = ratingContent,
         inactiveContent = inactiveContent,
@@ -141,7 +153,7 @@ private fun RatingBarBasic(
     modifier: Modifier = Modifier,
     childModifier: (index: Int) -> Modifier = { _ -> Modifier },
     numOfSteps: Int = 5,
-//    stepSize: Float = 1.0f,
+    stepSize: StepSize = StepSize.HALF,
     spaceBetween: Dp = 2.dp,
     ratingContent: @Composable () -> Unit = {
         RatingBarDefaults.RatingContent()
@@ -150,6 +162,13 @@ private fun RatingBarBasic(
         RatingBarDefaults.InactiveContent()
     },
 ) {
+    fun Float.modifyValue(stepSize: StepSize): Float = when (stepSize) {
+        StepSize.HALF -> this
+        StepSize.ONE -> kotlin.math.floor(this)
+    }
+
+    val modifiedValue = value.modifyValue(stepSize)
+
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(spaceBetween),
@@ -162,8 +181,19 @@ private fun RatingBarBasic(
             ) {
                 inactiveContent()
 
-                if (index < value) {
-                    ratingContent()
+                if (index < modifiedValue) {
+                    Box(
+                        modifier = Modifier
+                            .run {
+                                if (index == kotlin.math.floor(modifiedValue).toInt()) {
+                                    clip(HalfCutoutShape())
+                                } else {
+                                    this
+                                }
+                            },
+                    ) {
+                        ratingContent()
+                    }
                 }
             }
         }
@@ -212,4 +242,12 @@ internal fun RatingBarAsIndicatorSample(modifier: Modifier = Modifier) {
         modifier = modifier,
         value = 3f,
     )
+}
+
+private class HalfCutoutShape : Shape {
+    override fun createOutline(
+        size: Size,
+        layoutDirection: LayoutDirection,
+        density: Density,
+    ): Outline = Outline.Rectangle(Rect(Offset.Zero, Size((size.width / 2), size.height)))
 }
