@@ -39,13 +39,15 @@ RatingBar can be customized as follows:
 Please see the KDoc for details.
 
 ```kotlin
-    var rating by remember { mutableFloatStateOf(3f) }
+    var rating by remember { mutableFloatStateOf(3.5f) }
 
     RatingBar(
         value = rating,
         onValueChange = { rating = it },
-        numberOfStars = 10,
-        spaceBetween = 10.dp,
+        numOfSteps = 10,
+        stepSize = StepSize.HALF,
+        spaceBetween = 4.dp,
+        modifier = modifier.background(Color.Black),
     )
 ```
 

@@ -50,6 +50,7 @@ fun RatingBarSamples(modifier: Modifier = Modifier) {
 @Composable
 fun RatingBarSample(modifier: Modifier = Modifier) {
     var rating by remember { mutableFloatStateOf(3.5f) }
+
     RatingBar(
         value = rating,
         onValueChange = { rating = it },
