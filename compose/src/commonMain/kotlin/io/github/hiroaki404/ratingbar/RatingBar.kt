@@ -67,11 +67,11 @@ fun RatingBar(
     numOfSteps: Int = 5,
     stepSize: StepSize = StepSize.HALF,
     spaceBetween: Dp = 2.dp,
-    ratingContent: @Composable () -> Unit = {
-        RatingBarDefaults.RatingContent()
+    ratingContent: @Composable RatingBarDefaults.() -> Unit = {
+        RatingContent()
     },
-    inactiveContent: @Composable () -> Unit = {
-        RatingBarDefaults.InactiveContent()
+    inactiveContent: @Composable RatingBarDefaults.() -> Unit = {
+        InactiveContent()
     },
 ) {
     val boundingBoxes = remember(numOfSteps) { MutableList(numOfSteps) { Rect.Zero } }
@@ -129,11 +129,11 @@ fun RatingBarAsIndicator(
     numOfSteps: Int = 5,
     stepSize: StepSize = StepSize.HALF,
     spaceBetween: Dp = 2.dp,
-    ratingContent: @Composable () -> Unit = {
-        RatingBarDefaults.RatingContent()
+    ratingContent: @Composable RatingBarDefaults.() -> Unit = {
+        RatingContent()
     },
-    inactiveContent: @Composable () -> Unit = {
-        RatingBarDefaults.InactiveContent()
+    inactiveContent: @Composable RatingBarDefaults.() -> Unit = {
+        InactiveContent()
     },
 ) {
     RatingBarBasic(
@@ -155,11 +155,11 @@ private fun RatingBarBasic(
     numOfSteps: Int = 5,
     stepSize: StepSize = StepSize.HALF,
     spaceBetween: Dp = 2.dp,
-    ratingContent: @Composable () -> Unit = {
-        RatingBarDefaults.RatingContent()
+    ratingContent: @Composable RatingBarDefaults.() -> Unit = {
+        RatingContent()
     },
-    inactiveContent: @Composable () -> Unit = {
-        RatingBarDefaults.InactiveContent()
+    inactiveContent: @Composable RatingBarDefaults.() -> Unit = {
+        InactiveContent()
     },
 ) {
     fun Float.modifyValue(stepSize: StepSize): Float = when (stepSize) {
@@ -179,7 +179,9 @@ private fun RatingBarBasic(
                 modifier = Modifier
                     .then(childModifier(index)),
             ) {
-                inactiveContent()
+                with(RatingBarDefaults) {
+                    inactiveContent()
+                }
 
                 if (index < modifiedValue) {
                     Box(
@@ -192,7 +194,9 @@ private fun RatingBarBasic(
                                 }
                             },
                     ) {
-                        ratingContent()
+                        with(RatingBarDefaults) {
+                            ratingContent()
+                        }
                     }
                 }
             }
@@ -204,6 +208,9 @@ private fun RatingBarBasic(
  * The default color for rated contents. The default icon is a star.
  */
 object RatingBarDefaults {
+    val defaultStarColor = DefaultStarColor
+    val defaultInactiveStarColor = DefaultInactiveStarColor
+
     @Composable
     fun RatingContent(color: Color = DefaultStarColor, modifier: Modifier = Modifier) {
         Icon(
