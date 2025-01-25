@@ -3,7 +3,8 @@
 <img src="https://github.com/user-attachments/assets/f40a0bb9-21d0-4712-a175-82584c5cddda" width="400">
 
 RatingBar is a library for implementing a rating bar in Compose Multiplatform. This library allows
-you to easily add a rating bar to both Android and iOS applications.
+you to easily add a rating bar to both Android and iOS applications. Of course, it can be used not
+only with Compose Multiplatform, but also with Android's Compose.
 
 ## Features
 
@@ -24,12 +25,12 @@ dependencies {
 ## Usage
 
 ```kotlin
-    var rating by remember { mutableFloatStateOf(3f) }
+var rating by remember { mutableFloatStateOf(3f) }
 
-    RatingBar(
-        value = rating,
-        onValueChange = { rating = it },
-    )
+RatingBar(
+    value = rating,
+    onValueChange = { rating = it },
+)
 ```
 
 ## Customization
@@ -39,16 +40,16 @@ RatingBar can be customized as follows:
 Please see the KDoc for details.
 
 ```kotlin
-    var rating by remember { mutableFloatStateOf(3.5f) }
+var rating by remember { mutableFloatStateOf(3.5f) }
 
-    RatingBar(
-        value = rating,
-        onValueChange = { rating = it },
-        numOfSteps = 10,
-        stepSize = StepSize.HALF,
-        spaceBetween = 4.dp,
-        modifier = modifier.background(Color.Black),
-    )
+RatingBar(
+    value = rating,
+    onValueChange = { rating = it },
+    numOfSteps = 10,
+    stepSize = StepSize.HALF,
+    spaceBetween = 4.dp,
+    modifier = modifier.background(Color.Black),
+)
 ```
 
 ## License
