@@ -18,6 +18,9 @@ package io.github.hiroaki404.ratingbar
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Call
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -41,6 +44,10 @@ fun RatingBarSamples(modifier: Modifier = Modifier) {
             RatingBarSample()
         }
         Column {
+            Text("RatingBarImageCustomization")
+            RatingBarImageCustomizationSample()
+        }
+        Column {
             Text("RatingBarAsIndicator")
             RatingBarAsIndicatorSample()
         }
@@ -48,13 +55,36 @@ fun RatingBarSamples(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun RatingBarSample(modifier: Modifier = Modifier) {
+fun RatingBarSample() {
     var rating by remember { mutableFloatStateOf(3.5f) }
 
     RatingBar(
         value = rating,
         onValueChange = { rating = it },
-        modifier = modifier,
+    )
+}
+
+@Composable
+fun RatingBarImageCustomizationSample() {
+    var rating by remember { mutableFloatStateOf(3.5f) }
+
+    RatingBar(
+        value = rating,
+        onValueChange = { rating = it },
+        ratingContent = {
+            Icon(
+                imageVector = Icons.Rounded.Call,
+                contentDescription = null,
+                tint = defaultStarColor,
+            )
+        },
+        inactiveContent = {
+            Icon(
+                imageVector = Icons.Rounded.Call,
+                contentDescription = null,
+                tint = defaultInactiveStarColor,
+            )
+        },
     )
 }
 
