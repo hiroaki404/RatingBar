@@ -52,6 +52,35 @@ RatingBar(
 )
 ```
 
+## Image Customization
+
+You can use images other than stars as well.
+
+![Image](https://github.com/user-attachments/assets/a7ee45b2-90df-4235-bd4f-ee0c4e2a538e)
+
+```kotlin
+var rating by remember { mutableFloatStateOf(3.5f) }
+
+RatingBar(
+    value = rating,
+    onValueChange = { rating = it },
+    ratingContent = {
+        Icon(
+            imageVector = Icons.Rounded.Call,
+            contentDescription = null,
+            tint = defaultStarColor,
+        )
+    },
+    inactiveContent = {
+        Icon(
+            imageVector = Icons.Rounded.Call,
+            contentDescription = null,
+            tint = defaultInactiveStarColor,
+        )
+    },
+)
+```
+
 ## License
 
 ```
